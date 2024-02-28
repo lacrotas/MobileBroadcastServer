@@ -2,8 +2,8 @@ const { Expert_Statement } = require('../models/models');
 
 class ExpertStatementController {
     async addExpertStatement(req, res) {
-        const { aboutText, sex, technologies, cityId, links } = req.body;
-        const expertStatement = await Expert_Statement.create({ aboutText, sex, technologies, cityId, links });
+        const { name, aboutText, sex, technologies, cityId, links } = req.body;
+        const expertStatement = await Expert_Statement.create({ name, aboutText, sex, technologies, cityId, links });
         return res.json({ expertStatement });
     }
     async getAllExpertStatement(req, res) {

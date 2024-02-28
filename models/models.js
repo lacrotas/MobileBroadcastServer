@@ -19,7 +19,7 @@ const City = sequelize.define('cities', {
     name: { type: DataTypes.STRING, unique: true },
     link: { type: DataTypes.STRING, },
     image: { type: DataTypes.STRING },
-    gallary: { type: DataTypes.STRING},
+    gallary: { type: DataTypes.STRING },
     creatorsId: { type: DataTypes.STRING }
 })
 
@@ -48,12 +48,13 @@ const Meatings = sequelize.define('meatings', {
     data: { type: DataTypes.STRING },
     time: { type: DataTypes.STRING },
     cityId: { type: DataTypes.STRING },
-    expertsId: {type: DataTypes.STRING}
+    expertsId: { type: DataTypes.STRING }
 })
 
 
 const Expert_Statement = sequelize.define('expertStatement', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING },
     aboutText: { type: DataTypes.STRING },
     sex: { type: DataTypes.STRING },
     technologies: { type: DataTypes.STRING },
