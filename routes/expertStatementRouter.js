@@ -1,6 +1,6 @@
 const Router = require('express');
 const router = new Router();
-const ExpertStatementController = require('../controllers/ExpertStatementController');
+const ExpertStatementController = require('../controllers/expertStatementController');
 
 router.post('/addStatement', ExpertStatementController.addExpertStatement);
 router.get('/getAllStatement', ExpertStatementController.getAllExpertStatement);
