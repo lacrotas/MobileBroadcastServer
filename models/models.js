@@ -20,7 +20,8 @@ const City = sequelize.define('cities', {
     link: { type: DataTypes.STRING, },
     image: { type: DataTypes.STRING },
     gallary: { type: DataTypes.STRING },
-    creatorsId: { type: DataTypes.STRING }
+    creatorsId: { type: DataTypes.STRING },
+    countryId: { type: DataTypes.INTEGER },
 })
 
 const Country = sequelize.define('countries', {
@@ -28,6 +29,7 @@ const Country = sequelize.define('countries', {
     name: { type: DataTypes.STRING, unique: true },
     bgColor: { type: DataTypes.STRING },
     strokeColor: { type: DataTypes.STRING },
+    countryIndex: { type: DataTypes.INTEGER }
 })
 const Experts = sequelize.define('experts', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },

@@ -1,30 +1,21 @@
-const { Meatings } = require('../models/models');
+const { Country } = require('../models/models');
 
-class MeatingsController {
-    async addMeating(req, res) {
-        const { location, data, time, cityId } = req.body;
-        const expert = await Meatings.create({ location, data, time, cityId });
+class CountryController {
+
+    async addCountry(req, res) {
+        const { name, bgColor, strokeColor, countryIndex } = req.body;
+        const expert = await Country.create({ name, bgColor, strokeColor, countryIndex });
         return res.json({ expert });
     }
 
-    async getAllMeating(req, res) {
-        const meating = await Meatings.findAll()
-        return res.json(meating);
+    async getAllCountry(req, res) {
+        const cityes = await Country.findAll()
+        return res.json(cityes);
     }
-    async getMeatingById(req, res) {
-        const { id } = req.params
-        const expertStatement = await Meatings.findOne(
-            {
-                where: { id }
-            },
-        )
-        return res.json(expertStatement)
-    }
-
-    async deleteMeatingById(req, res) {
+    async deleteCountryById(req, res) {
         const { id } = req.params;
         try {
-            const deletedRows = await Meatings.destroy({
+            const deletedRows = await Country.destroy({
                 where: { id }
             });
     
@@ -42,17 +33,17 @@ class MeatingsController {
 
     }
 
-    async updateMeetingById(req, res) {
+    async updateCountryById(req, res) {
         const { id } = req.params;
-        const {location, data, time, cityId } = req.body;
+        const {name, bgColor, strokeColor, countryIndex } = req.body;
     
         try {
-            const [updatedRowsCount, updatedRows] = await Meatings.update(
+            const [updatedRowsCount, updatedRows] = await Country.update(
                 { 
-                    location: location,
-                    data: data,
-                    time: time,
-                    cityId: cityId,
+                    name: name,
+                    bgColor: bgColor,
+                    strokeColor: strokeColor,
+                    countryIndex: countryIndex,
                 },
                 {
                     returning: true,
@@ -72,16 +63,6 @@ class MeatingsController {
             res.status(500).json({ message: 'Ошибка сервера' });
         }
     }
-
-    async getMeatingByExpert(req, res) {
-        const { expertsId } = req.params
-        const expertStatement = await Meatings.findAll(
-            {
-                where: { expertsId }
-            },
-        )
-        return res.json(expertStatement)
-    }
 }
 
-module.exports = new MeatingsController();
+module.exports = new CountryController();
