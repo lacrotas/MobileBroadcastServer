@@ -40,7 +40,8 @@ const Experts = sequelize.define('experts', {
     articles: { type: DataTypes.STRING },
     technologies: { type: DataTypes.STRING },
     cityId: { type: DataTypes.INTEGER },
-    link: { type: DataTypes.STRING },
+    linkTelegram: { type: DataTypes.STRING },
+    linkMail: { type: DataTypes.STRING },
     meatingId: { type: DataTypes.STRING },
 })
 
@@ -64,6 +65,18 @@ const Expert_Statement = sequelize.define('expertStatement', {
     links: { type: DataTypes.STRING },
 })
 
+const Articles = sequelize.define('articles', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING },
+    file: { type: DataTypes.STRING },
+    expertId: { type: DataTypes.STRING },
+})
+const GallaryImage = sequelize.define('galaryImage', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    file: { type: DataTypes.STRING },
+    cityId: { type: DataTypes.STRING },
+})
+
 // Country.hasMany(City);
 // City.belongsTo(Country);
 
@@ -74,5 +87,7 @@ module.exports = {
     Experts,
     Meatings,
     User,
-    Expert_Statement
+    Expert_Statement,
+    Articles,
+    GallaryImage
 }

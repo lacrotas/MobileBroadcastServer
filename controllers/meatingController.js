@@ -41,6 +41,26 @@ class MeatingsController {
         }
 
     }
+    async deleteMeatingByCityId(req, res) {
+        const { cityId } = req.params;
+        try {
+            const deletedRows = await Meatings.destroy({
+                where: { cityId }
+            });
+    
+            if (deletedRows > 0) {
+                // Объект успешно удален
+                res.status(200).json({ message: 'Объект успешно удален' });
+            } else {
+                // Объект не найден
+                res.status(404).json({ message: 'Объект не найден' });
+            }
+        } catch (error) {
+            console.error('Ошибка при удалении объекта:', error);
+            res.status(500).json({ message: 'Ошибка сервера' });
+        }
+
+    }
 
     async updateMeetingById(req, res) {
         const { id } = req.params;
