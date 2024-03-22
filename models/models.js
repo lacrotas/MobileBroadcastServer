@@ -4,8 +4,10 @@ const { DataTypes } = require("sequelize")
 const Creators = sequelize.define('creators', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING },
-    link: { type: DataTypes.STRING, },
+    telegram: { type: DataTypes.STRING, },
+    mail: { type: DataTypes.STRING, },
     image: { type: DataTypes.STRING },
+    cityId: { type: DataTypes.INTEGER },
 })
 
 const User = sequelize.define('users', {
@@ -55,14 +57,10 @@ const Meatings = sequelize.define('meatings', {
 })
 
 
-const Expert_Statement = sequelize.define('expertStatement', {
+const Sponsor_Statement = sequelize.define('sponsorStatement', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING },
-    aboutText: { type: DataTypes.STRING },
-    sex: { type: DataTypes.STRING },
-    technologies: { type: DataTypes.STRING },
-    cityId: { type: DataTypes.STRING },
-    links: { type: DataTypes.STRING },
+    link: { type: DataTypes.STRING },
 })
 
 const Articles = sequelize.define('articles', {
@@ -77,6 +75,13 @@ const GallaryImage = sequelize.define('galaryImage', {
     cityId: { type: DataTypes.STRING },
 })
 
+const Sponsor_Panel = sequelize.define('sponsorPanel', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING },
+    link: { type: DataTypes.STRING },
+    image: { type: DataTypes.STRING },
+})
+
 // Country.hasMany(City);
 // City.belongsTo(Country);
 
@@ -87,7 +92,8 @@ module.exports = {
     Experts,
     Meatings,
     User,
-    Expert_Statement,
+    Sponsor_Statement,
     Articles,
-    GallaryImage
+    GallaryImage,
+    Sponsor_Panel
 }

@@ -8,4 +8,6 @@ router.get('/:id', ExpertController.getExpertById);
 router.put('/update/:id', ExpertController.updateExpert);
 router.delete('/delete/:id', ExpertController.deleteExpertById);
 router.delete('/deleteByCityId/:cityId', ExpertController.deleteExpertByCityId);
+router.get('/getAllExpertMeating/:meatingId', ExpertController.getExpertsForMeeting);
+
 module.exports = router;

@@ -1,4 +1,4 @@
-const { Experts } = require('../models/models');
+const { Experts, Meatings } = require('../models/models');
 const uuid = require('uuid');
 const path = require('path');
 
@@ -126,6 +126,24 @@ class ExpertController {
             },
         )
         return res.json(expertStatement)
+    }
+    async getExpertsForMeeting(req, res) {
+        const { meatingId } = req.params;
+        try {
+
+            // Разделяем строку в поле ExpertId на отдельные идентификаторы экспертов
+            const meatingIds = meatingId.split('.');
+            console.log("ssssssssssssssssss")
+            console.log(meatingIds);
+            // Запрашиваем экспертные записи из базы данных по идентификаторам1
+            const experts = await Meatings.findAll({
+                where: { id: meatingIds }
+            });
+            return res.json(experts);
+        } catch (error) {
+            console.error("Error fetching experts:", error);
+            return res.status(500).json({ error: "Internal server error" });
+        }
     }
 }
 
