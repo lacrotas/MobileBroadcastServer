@@ -44,6 +44,8 @@ const Experts = sequelize.define('experts', {
     cityId: { type: DataTypes.INTEGER },
     linkTelegram: { type: DataTypes.STRING },
     linkMail: { type: DataTypes.STRING },
+    linkGitHab: { type: DataTypes.STRING },
+    linkLinkedIn: { type: DataTypes.STRING },
     meatingId: { type: DataTypes.STRING },
 })
 

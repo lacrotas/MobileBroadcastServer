@@ -4,7 +4,7 @@ const path = require('path');
 
 class ExpertController {
     async addExpert(req, res) {
-        const { name, aboutText, sex, technologies, cityId, linkTelegram, linkMail, meatingId } = req.body;
+        const { name, aboutText, sex, technologies, cityId, linkTelegram, linkMail, linkGitHab, linkLinkedIn, meatingId } = req.body;
         let fileName;
         try {
             const { image } = req.files;
@@ -17,13 +17,13 @@ class ExpertController {
                 fileName = "womenAvatar.png"
             }
         }
-        const expert = await Experts.create({ name, image: fileName, aboutText, sex, technologies, cityId, linkTelegram, linkMail, meatingId });
+        const expert = await Experts.create({ name, image: fileName, aboutText, sex, technologies, cityId, linkTelegram, linkMail, linkGitHab, linkLinkedIn, meatingId });
         return res.json({ expert });
     }
 
     async updateExpert(req, res) {
         const { id } = req.params;
-        const { name, aboutText, sex, technologies, cityId, linkTelegram, linkMail, meatingId, articles } = req.body;
+        const { name, aboutText, sex, technologies, cityId, linkTelegram, linkMail, meatingId, articles, linkGitHab, linkLinkedIn } = req.body;
         let fileName;
         try {
             const { image } = req.files;
@@ -31,8 +31,6 @@ class ExpertController {
             image.mv(path.resolve(__dirname, '..', 'static', fileName));
         } catch (error) {
             const { image } = req.body;
-            console.log("image");
-            console.log(image);
             if (image) {
                 fileName = image;
             }
@@ -56,6 +54,8 @@ class ExpertController {
                     cityId: cityId,
                     linkTelegram: linkTelegram,
                     linkMail: linkMail,
+                    linkGitHab:linkGitHab,
+                    linkLinkedIn: linkLinkedIn,
                     meatingId: meatingId,
                     articles: articles,
                 },
