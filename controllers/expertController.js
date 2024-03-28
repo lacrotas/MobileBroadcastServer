@@ -30,26 +30,20 @@ class ExpertController {
             fileName = uuid.v4() + ".jpg";
             image.mv(path.resolve(__dirname, '..', 'static', fileName));
         } catch (error) {
-            if (sex == "men") {
-                fileName = "menAvatar.png"
-            } else {
-                fileName = "womenAvatar.png"
+            const { image } = req.body;
+            console.log("image");
+            console.log(image);
+            if (image) {
+                fileName = image;
+            }
+            else {
+                if (sex == "men") {
+                    fileName = "menAvatar.png"
+                } else {
+                    fileName = "womenAvatar.png"
+                }
             }
         }
-        // const { articles } = req.files;
-        // let articlesfileArr = "";
-        // for (let i = 0; i < articles.length; i++) {
-        //     try {
-        //         let fileArticleName = uuid.v4() + path.extname(articles[i].name);
-        //         articles[i].mv(path.resolve(__dirname, '..', 'static', fileArticleName));
-        //         articlesfileArr += fileArticleName;
-        //         if (i + 1 != articles.length) {
-        //             articlesfileArr += "/";
-        //         }
-        //     } catch (error) {
-        //         console.log("Не удалось загрузить файл")
-        //     }
-        // }
         /*updating */
         try {
             const [updatedRowsCount, updatedRows] = await Experts.update(

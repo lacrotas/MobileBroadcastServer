@@ -66,6 +66,7 @@ const Sponsor_Statement = sequelize.define('sponsorStatement', {
 const Articles = sequelize.define('articles', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING },
+    link: { type: DataTypes.STRING },
     file: { type: DataTypes.STRING },
     expertId: { type: DataTypes.STRING },
 })

@@ -5,12 +5,16 @@ const fs = require('fs');
 
 class ArticlesController {
     async addArticle(req, res) {
-        const { name, expertId } = req.body;
+        const { name, expertId, link } = req.body;
         let fileName;
-        const { file } = req.files;
-        fileName = uuid.v4() + path.extname(file.name);
-        file.mv(path.resolve(__dirname, '..', 'static', fileName));
-        const article = await Articles.create({ name, expertId, file: fileName });
+        try {
+            const { file } = req.files;
+            fileName = uuid.v4() + path.extname(file.name);
+            file.mv(path.resolve(__dirname, '..', 'static', fileName));
+        } catch (e) {
+            fileName = null;
+        }
+        const article = await Articles.create({ name, expertId, file: fileName, link });
         return res.json({ article });
     }
 
