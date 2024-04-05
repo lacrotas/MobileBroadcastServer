@@ -6,10 +6,19 @@ const path = require('path');
 class CreatorController {
     async addCreator(req, res, next) {
         try {
-            const { name, telegram, mail, cityId } = req.body
-            const { image } = req.files;
-            let fileName = uuid.v4() + ".jpg";
-            image.mv(path.resolve(__dirname, '..', 'static', fileName));
+            const { name, telegram, mail, cityId, sex } = req.body
+            let fileName;
+            try {
+                const { image } = req.files;
+                fileName = uuid.v4() + ".jpg";
+                image.mv(path.resolve(__dirname, '..', 'static', fileName));
+            } catch (error) {
+                if (sex == "men") {
+                    fileName = "menAvatar.png"
+                } else {
+                    fileName = "womenAvatar.png"
+                }
+            }
             const creator = await Creators.create({ name, image: fileName, cityId, telegram, mail })
             return res.json(creator);
         } catch (e) {
@@ -51,7 +60,7 @@ class CreatorController {
     }
     async updateCreatorById(req, res) {
         const { id } = req.params;
-        const { name, cityId, telegram, mail } = req.body;
+        const { name, cityId, telegram, mail, sex } = req.body;
         let fileName;
         try {
             const { image } = req.files;
@@ -59,7 +68,16 @@ class CreatorController {
             image.mv(path.resolve(__dirname, '..', 'static', fileName));
         } catch (error) {
             const { image } = req.body;
-            fileName = image;
+            if (image && !sex) {
+                fileName = image;
+            }
+            else {
+                if (sex == "men") {
+                    fileName = "menAvatar.png"
+                } else {
+                    fileName = "womenAvatar.png"
+                }
+            }
         }
         try {
             const [updatedRowsCount, updatedRows] = await Creators.update(

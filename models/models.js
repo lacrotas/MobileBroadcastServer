@@ -37,7 +37,7 @@ const Experts = sequelize.define('experts', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING },
     image: { type: DataTypes.STRING },
-    aboutText: { type: DataTypes.STRING },
+    aboutText: { type: DataTypes.STRING(1000) },
     sex: { type: DataTypes.STRING },
     articles: { type: DataTypes.STRING },
     technologies: { type: DataTypes.STRING },
