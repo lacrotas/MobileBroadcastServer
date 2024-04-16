@@ -4,7 +4,7 @@ const path = require('path');
 
 class ExpertController {
     async addExpert(req, res) {
-        const { name, aboutText, sex, technologies, cityId, linkTelegram, linkMail, linkGitHab, linkLinkedIn, meatingId } = req.body;
+        const { name, aboutText, sex, technologies, cityId, linkTelegram, linkMail, linkGitHab, linkLinkedIn, meatingId, cityWithoutList } = req.body;
         let fileName;
         try {
             const { image } = req.files;
@@ -17,13 +17,13 @@ class ExpertController {
                 fileName = "womenAvatar.png"
             }
         }
-        const expert = await Experts.create({ name, image: fileName, aboutText, sex, technologies, cityId, linkTelegram, linkMail, linkGitHab, linkLinkedIn, meatingId });
+        const expert = await Experts.create({ name, image: fileName, aboutText, sex, technologies, cityId, linkTelegram, linkMail, linkGitHab, linkLinkedIn, meatingId, cityWithoutList });
         return res.json({ expert });
     }
 
     async updateExpert(req, res) {
         const { id } = req.params;
-        const { name, aboutText, sex, technologies, cityId, linkTelegram, linkMail, meatingId, articles, linkGitHab, linkLinkedIn } = req.body;
+        const { name, aboutText, sex, technologies, cityId, linkTelegram, linkMail, meatingId, articles, linkGitHab, linkLinkedIn, cityWithoutList } = req.body;
         let fileName;
         try {
             const { image } = req.files;
@@ -42,6 +42,15 @@ class ExpertController {
                 }
             }
         }
+        let newCityId, newCityWithoutList;
+
+        if(cityId != "undefined"){
+            newCityId = cityId;
+            newCityWithoutList = null;
+        }else{
+            newCityId = null;
+            newCityWithoutList = cityWithoutList;
+        } 
         /*updating */
         try {
             const [updatedRowsCount, updatedRows] = await Experts.update(
@@ -51,13 +60,14 @@ class ExpertController {
                     aboutText: aboutText,
                     sex: sex,
                     technologies: technologies,
-                    cityId: cityId,
+                    cityId: newCityId,
                     linkTelegram: linkTelegram,
                     linkMail: linkMail,
                     linkGitHab:linkGitHab,
                     linkLinkedIn: linkLinkedIn,
                     meatingId: meatingId,
                     articles: articles,
+                    cityWithoutList: newCityWithoutList,
                 },
                 {
                     returning: true,
@@ -127,7 +137,6 @@ class ExpertController {
 
             // Разделяем строку в поле ExpertId на отдельные идентификаторы экспертов
             const meatingIds = meatingId.split('.');
-            console.log("ssssssssssssssssss")
             console.log(meatingIds);
             // Запрашиваем экспертные записи из базы данных по идентификаторам1
             const experts = await Meatings.findAll({
